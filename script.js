@@ -17,6 +17,14 @@ const els = {
     f3Desc: document.getElementById('fb-f3-desc'),
     f4Title: document.getElementById('fb-f4-title'),
     f4Desc: document.getElementById('fb-f4-desc'),
+    f5Title: document.getElementById('fb-f5-title'),
+    f5Desc: document.getElementById('fb-f5-desc'),
+    f6Title: document.getElementById('fb-f6-title'),
+    f6Desc: document.getElementById('fb-f6-desc'),
+    f7Title: document.getElementById('fb-f7-title'),
+    f7Desc: document.getElementById('fb-f7-desc'),
+    f8Title: document.getElementById('fb-f8-title'),
+    f8Desc: document.getElementById('fb-f8-desc'),
 
     previewVideo: document.getElementById('fb-preview-video'),
 
@@ -47,6 +55,14 @@ onValue(websiteRef, (snapshot) => {
     if(els.f3Desc) els.f3Desc.innerText = data.features?.feature3_desc || defaultContent.features.feature3_desc;
     if(els.f4Title) els.f4Title.innerText = data.features?.feature4_title || defaultContent.features.feature4_title;
     if(els.f4Desc) els.f4Desc.innerText = data.features?.feature4_desc || defaultContent.features.feature4_desc;
+    if(els.f5Title) els.f5Title.innerText = data.features?.feature5_title || defaultContent.features.feature5_title;
+    if(els.f5Desc) els.f5Desc.innerText = data.features?.feature5_desc || defaultContent.features.feature5_desc;
+    if(els.f6Title) els.f6Title.innerText = data.features?.feature6_title || defaultContent.features.feature6_title;
+    if(els.f6Desc) els.f6Desc.innerText = data.features?.feature6_desc || defaultContent.features.feature6_desc;
+    if(els.f7Title) els.f7Title.innerText = data.features?.feature7_title || defaultContent.features.feature7_title;
+    if(els.f7Desc) els.f7Desc.innerText = data.features?.feature7_desc || defaultContent.features.feature7_desc;
+    if(els.f8Title) els.f8Title.innerText = data.features?.feature8_title || defaultContent.features.feature8_title;
+    if(els.f8Desc) els.f8Desc.innerText = data.features?.feature8_desc || defaultContent.features.feature8_desc;
 
     // Preview
     if(els.previewVideo) {
@@ -68,6 +84,29 @@ onValue(websiteRef, (snapshot) => {
         if(waNum.startsWith('0')) waNum = '92' + waNum.substring(1);
         els.purWaLink.href = `https://wa.me/${waNum}?text=I%20want%20to%20buy%20Qadri%20AI%20Lifetime%20License`;
     }
+
+    // SEO Updates
+    const title = data.seo?.title || defaultContent.seo.title;
+    const desc = data.seo?.description || defaultContent.seo.description;
+    const keywords = data.seo?.keywords || defaultContent.seo.keywords;
+
+    document.title = title;
+
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+        metaDesc = document.createElement('meta');
+        metaDesc.name = "description";
+        document.head.appendChild(metaDesc);
+    }
+    metaDesc.content = desc;
+
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+        metaKeywords = document.createElement('meta');
+        metaKeywords.name = "keywords";
+        document.head.appendChild(metaKeywords);
+    }
+    metaKeywords.content = keywords;
 });
 
 // Scroll Reveal Animation
