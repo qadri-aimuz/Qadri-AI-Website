@@ -134,3 +134,50 @@ document.addEventListener('mousemove', (e) => {
         if(glows[1]) glows[1].style.transform = `translate(${x * -50}px, ${y * -50}px)`;
     }
 });
+
+// Terminal Typing Effect
+const terminalLines = [
+    "Initializing Qadri AI Core System...",
+    "Loading Ahl-e-Sunnat Knowledge Base: OK",
+    "Mounting Sentinel Security Modules...",
+    "Bypassing standard firewall limits... [SUCCESS]",
+    "Executing subagent_network.sh...",
+    "Subagent 1: Memory sync complete.",
+    "Subagent 2: Threat detection online.",
+    "Connecting to Master Server... Connection Established.",
+    "System Ready. Awaiting user input..."
+];
+
+const terminalOutput = document.getElementById("terminal-output");
+let currentLine = 0;
+let currentChar = 0;
+
+function typeTerminal() {
+    if(!terminalOutput) return;
+    
+    if(currentLine < terminalLines.length) {
+        if(currentChar === 0) {
+            terminalOutput.innerHTML += "<div><span class='text-emerald-500/70'>$</span> <span id='line-" + currentLine + "'></span></div>";
+        }
+        
+        const lineElement = document.getElementById("line-" + currentLine);
+        lineElement.innerHTML += terminalLines[currentLine].charAt(currentChar);
+        currentChar++;
+        
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        
+        if(currentChar < terminalLines[currentLine].length) {
+            setTimeout(typeTerminal, Math.random() * 50 + 20); // Random typing speed
+        } else {
+            currentLine++;
+            currentChar = 0;
+            setTimeout(typeTerminal, Math.random() * 800 + 400); // Pause between lines
+        }
+    } else {
+        terminalOutput.innerHTML += "<div class='mt-4 text-cyan-400 blink'>_</div>";
+    }
+}
+
+if(terminalOutput) {
+    setTimeout(typeTerminal, 1000);
+}
